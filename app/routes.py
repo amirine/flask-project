@@ -1,9 +1,10 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
+from datetime import datetime
 
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm
 from app import models
 
 
@@ -78,7 +79,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/user/<username>')
+@app.route('/user_profile/<username>')
 @login_required
 def user_profile(username):
     """Home Page: displays common info. Available only for authorized users"""
@@ -95,7 +96,35 @@ def user_profile(username):
         }
     ]
 
-    return render_template('user_profile.html', title='Home', posts=posts)
+    return render_template('user_profile.html', user=user, posts=posts)
+
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    """Edit Profile Page: allows to make changes to username and about_me field"""
+
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.about_me = form.about_me.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('user_profile', username=current_user.username))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.about_me.data = current_user.about_me
+
+    return render_template('edit_profile.html', form=form)
+
+
+@app.before_request
+def before_request():
+    """Sets {last_seen} date for the user before the page request"""
+
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
 
 
 @app.shell_context_processor
