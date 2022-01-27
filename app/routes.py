@@ -78,6 +78,26 @@ def logout():
     return redirect(url_for('index'))
 
 
+@app.route('/user/<username>')
+@login_required
+def user_profile(username):
+    """Home Page: displays common info. Available only for authorized users"""
+
+    user = models.User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {
+            'author': user,
+            'body': 'Post 1'
+        },
+        {
+            'author': user,
+            'body': 'Post2'
+        }
+    ]
+
+    return render_template('user_profile.html', title='Home', posts=posts)
+
+
 @app.shell_context_processor
 def make_shell_context():
     """Allows to use database models in shell with no import"""
