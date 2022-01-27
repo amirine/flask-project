@@ -1,20 +1,10 @@
-from flask import Flask, render_template, flash, redirect, url_for, request
-from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
+from flask import render_template, flash, redirect, url_for, request
+from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
 
-from config import Config
-from forms import LoginForm, RegistrationForm
-
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-login = LoginManager(app)
-login.login_view = 'login'
-
-import models
+from app import app, db
+from app.forms import LoginForm, RegistrationForm
+from app import models
 
 
 @app.route('/')
@@ -47,10 +37,10 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        user = models.User.query.filter(username=form.username.data).first()
+        user = models.User.query.filter_by(username=form.username.data).first()
         if not user or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect(url_for('index'))
 
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -59,6 +49,7 @@ def login():
         return redirect(next_page)
 
     return render_template('login.html', title='Sign In', form=form)
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -81,14 +72,14 @@ def register():
 
 @app.route('/logout')
 def logout():
+    """View for user logout"""
+
     logout_user()
     return redirect(url_for('index'))
 
 
 @app.shell_context_processor
 def make_shell_context():
+    """Allows to use database models in shell with no import"""
+
     return {'db': db, 'User': models.User, 'Post': models.Post}
-
-
-if __name__ == '__main__':
-    app.run()
