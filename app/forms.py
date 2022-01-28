@@ -44,3 +44,15 @@ class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     about_me = StringField('About me', validators=[Length(min=0, max=128)])
     submit = SubmitField('Save')
+
+    def __init__(self, original_username, *args, **kwargs):
+        """Adds {original_username} field to compare original username and entered one in profile edit form"""
+
+        super().__init__(*args, **kwargs)
+        self.original_username = original_username
+
+    def validate_username(self, username):
+        """Checks whether edited username already exists. Raises error in case of existence"""
+
+        if username != self.original_username and User.query.filter_by(username=username.data).first():
+            raise ValidationError('Please use a different username.')

@@ -104,7 +104,7 @@ def user_profile(username):
 def edit_profile():
     """Edit Profile Page: allows to make changes to username and about_me field"""
 
-    form = EditProfileForm()
+    form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data

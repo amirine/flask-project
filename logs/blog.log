@@ -1,0 +1,36 @@
+2022-01-28 21:34:07,947 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
+2022-01-28 21:34:17,740 ERROR: Exception on /edit_profile [GET] [in /Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/ira/PycharmProjects/flask_project/app/routes.py", line 107, in edit_profile
+    form = EditProfileForm()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/wtforms/form.py", line 208, in __call__
+    return type.__call__(cls, *args, **kwargs)
+TypeError: __init__() missing 1 required positional argument: 'original_username'
+2022-01-28 21:34:55,201 ERROR: Exception on /edit_profile [GET] [in /Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/ira/PycharmProjects/flask_project/app/routes.py", line 107, in edit_profile
+    form = EditProfileForm()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/wtforms/form.py", line 208, in __call__
+    return type.__call__(cls, *args, **kwargs)
+TypeError: __init__() missing 1 required positional argument: 'original_username'
+2022-01-28 21:36:28,556 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
