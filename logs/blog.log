@@ -36,3 +36,6 @@ TypeError: __init__() missing 1 required positional argument: 'original_username
 2022-01-28 21:36:28,556 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
 2022-01-29 11:16:38,907 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
 2022-01-29 11:17:12,119 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
+2022-01-29 13:52:36,042 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
+2022-01-29 13:55:24,785 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
+2022-01-29 14:05:14,070 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
