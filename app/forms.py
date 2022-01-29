@@ -56,3 +56,16 @@ class EditProfileForm(FlaskForm):
 
         if username != self.original_username and User.query.filter_by(username=username.data).first():
             raise ValidationError('Please use a different username.')
+
+
+class SubmitForm(FlaskForm):
+    """Form for user follow or unfollow"""
+
+    submit = SubmitField('Submit')
+
+
+class PostForm(FlaskForm):
+    """Form for post creating"""
+
+    text = StringField('Post text', validators=[Length(min=0, max=128)])
+    submit = SubmitField('Submit')

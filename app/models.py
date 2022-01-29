@@ -50,13 +50,13 @@ class User(UserMixin, db.Model):
     def follow(self, user_to_follow) -> None:
         """Makes current user follow {user_to_follow}"""
 
-        if not self.already_follows_check(user_to_follow):
+        if not self.already_follows_check(user_to_follow) and user_to_follow.id != self.id:
             self.followed.append(user_to_follow)
 
     def unfollow(self, user_to_unfollow) -> None:
         """Makes current user unfollow {user_to_follow}"""
 
-        if self.already_follows_check(user_to_unfollow):
+        if self.already_follows_check(user_to_unfollow) and user_to_unfollow.id != self.id:
             self.followed.remove(user_to_unfollow)
 
     def already_follows_check(self, user_to_follow) -> int:

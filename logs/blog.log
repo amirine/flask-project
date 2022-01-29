@@ -39,3 +39,57 @@ TypeError: __init__() missing 1 required positional argument: 'original_username
 2022-01-29 13:52:36,042 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
 2022-01-29 13:55:24,785 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
 2022-01-29 14:05:14,070 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
+2022-01-29 15:19:34,444 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
+2022-01-29 15:21:47,548 ERROR: Exception on /user_profile/iii [GET] [in /Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/ira/PycharmProjects/flask_project/app/routes.py", line 101, in user_profile
+    return render_template('user_profile.html', user=user, posts=posts, form=form)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/jinja2/environment.py", line 1291, in render
+    self.environment.handle_exception()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/jinja2/environment.py", line 925, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/ira/PycharmProjects/flask_project/app/templates/user_profile.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/ira/PycharmProjects/flask_project/app/templates/base.html", line 30, in top-level template code
+    {% block content %}{% endblock %}
+  File "/Users/ira/PycharmProjects/flask_project/app/templates/user_profile.html", line 21, in block 'content'
+    {% elif not current_user.is_following(user) %}
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/jinja2/utils.py", line 84, in from_obj
+    if hasattr(obj, "jinja_pass_arg"):
+jinja2.exceptions.UndefinedError: 'app.models.User object' has no attribute 'is_following'
+2022-01-29 15:34:35,352 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/app/__init__.py:46]
+2022-01-29 15:39:50,970 ERROR: Exception on /follow/iii [POST] [in /Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/Users/ira/PycharmProjects/flask_project/app/routes.py", line 149, in follow
+    return redirect(url_for('user', username=username))
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+  File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/werkzeug/routing.py", line 2314, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'user' with values ['username']. Did you mean 'user_profile' instead?
