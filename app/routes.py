@@ -225,12 +225,14 @@ def reset_password(token):
 
 @app.before_request
 def before_request():
-    """Sets {last_seen} date for the user before the page request"""
+    """Sets {last_seen} date and local dates for the user before the page request"""
 
+    # Sets last_seen date
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
+    # Sets locale for dates on pages
     g.locale = str(get_locale())
 
 

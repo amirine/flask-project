@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-01-30 23:14+0300\n"
+"POT-Creation-Date: 2022-01-30 23:35+0300\n"
 "PO-Revision-Date: 2022-01-30 21:43+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -63,11 +63,11 @@ msgstr "Пожалуйста, используйте другой адрес э�
 msgid "About me"
 msgstr "Обо мне"
 
-#: app/forms.py:46 app/forms.py:86
+#: app/forms.py:46 app/forms.py:71 app/forms.py:86
 msgid "Save"
 msgstr "Сохранить"
 
-#: app/forms.py:64 app/forms.py:71
+#: app/forms.py:64
 msgid "Submit"
 msgstr "Подтвердить"
 
@@ -223,15 +223,15 @@ msgstr "Был(-а) в сети: %(last_seen)s"
 msgid "%(followers)d followers, %(following)d following"
 msgstr "%(followers)d подписчики, %(following)d подписки"
 
-#: app/templates/user_profile.html:34
+#: app/templates/user_profile.html:33
 msgid "Edit your profile"
 msgstr "Редактировать профиль"
 
-#: app/templates/user_profile.html:44
+#: app/templates/user_profile.html:41
 msgid "Follow"
 msgstr "Подписаться"
 
-#: app/templates/user_profile.html:51
+#: app/templates/user_profile.html:48
 msgid "Unfollow"
 msgstr "Отменить подписку"
 
@@ -240,30 +240,30 @@ msgstr "Отменить подписку"
 msgid "Dear %(username)s,"
 msgstr "Уважаемый(-ая) %(username)s,"
 
-#: app/templates/email/reset_password.html:6
+#: app/templates/email/reset_password.html:4
 msgid "click here"
 msgstr "нажмите здесь"
 
-#: app/templates/email/reset_password.html:8
+#: app/templates/email/reset_password.html:6
 #, python-format
 msgid "To reset your password %(link)s."
 msgstr "Чтобы сбросить свой пароль %(link)s."
 
-#: app/templates/email/reset_password.html:16
+#: app/templates/email/reset_password.html:8
 msgid ""
 "Alternatively, you can paste the following link in the address bar of "
 "your browser"
 msgstr "Или вы можете вставить следующую ссылку в адресную строку вашего браузера"
 
-#: app/templates/email/reset_password.html:18
+#: app/templates/email/reset_password.html:10
 msgid "If you have not requested a password reset simply ignore this message."
 msgstr "Если вы не запрашивали сброс пароля, просто проигнорируйте это сообщение."
 
-#: app/templates/email/reset_password.html:19
+#: app/templates/email/reset_password.html:11
 msgid "Sincerely,"
 msgstr "С уважением,"
 
-#: app/templates/email/reset_password.html:20
+#: app/templates/email/reset_password.html:12
 msgid "The Flask Blog Team"
 msgstr "Команда The Flask Blog"
 

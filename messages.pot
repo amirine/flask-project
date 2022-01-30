@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-01-30 23:14+0300\n"
+"POT-Creation-Date: 2022-01-30 23:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,11 +61,11 @@ msgstr ""
 msgid "About me"
 msgstr ""
 
-#: app/forms.py:46 app/forms.py:86
+#: app/forms.py:46 app/forms.py:71 app/forms.py:86
 msgid "Save"
 msgstr ""
 
-#: app/forms.py:64 app/forms.py:71
+#: app/forms.py:64
 msgid "Submit"
 msgstr ""
 
@@ -218,15 +218,15 @@ msgstr ""
 msgid "%(followers)d followers, %(following)d following"
 msgstr ""
 
-#: app/templates/user_profile.html:34
+#: app/templates/user_profile.html:33
 msgid "Edit your profile"
 msgstr ""
 
-#: app/templates/user_profile.html:44
+#: app/templates/user_profile.html:41
 msgid "Follow"
 msgstr ""
 
-#: app/templates/user_profile.html:51
+#: app/templates/user_profile.html:48
 msgid "Unfollow"
 msgstr ""
 
@@ -235,30 +235,30 @@ msgstr ""
 msgid "Dear %(username)s,"
 msgstr ""
 
-#: app/templates/email/reset_password.html:6
+#: app/templates/email/reset_password.html:4
 msgid "click here"
 msgstr ""
 
-#: app/templates/email/reset_password.html:8
+#: app/templates/email/reset_password.html:6
 #, python-format
 msgid "To reset your password %(link)s."
 msgstr ""
 
-#: app/templates/email/reset_password.html:16
+#: app/templates/email/reset_password.html:8
 msgid ""
 "Alternatively, you can paste the following link in the address bar of "
 "your browser"
 msgstr ""
 
-#: app/templates/email/reset_password.html:18
+#: app/templates/email/reset_password.html:10
 msgid "If you have not requested a password reset simply ignore this message."
 msgstr ""
 
-#: app/templates/email/reset_password.html:19
+#: app/templates/email/reset_password.html:11
 msgid "Sincerely,"
 msgstr ""
 
-#: app/templates/email/reset_password.html:20
+#: app/templates/email/reset_password.html:12
 msgid "The Flask Blog Team"
 msgstr ""
 

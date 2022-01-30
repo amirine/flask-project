@@ -68,7 +68,7 @@ class PostForm(FlaskForm):
     """Form for post creating"""
 
     text = StringField(_l('Post text'), validators=[Length(min=0, max=128)])
-    submit = SubmitField(_l('Submit'))
+    submit = SubmitField(_l('Save'))
 
 
 class PasswordResetRequestForm(FlaskForm):

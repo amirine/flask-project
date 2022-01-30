@@ -30,10 +30,7 @@
                 <!-- Link for profile edit -->
                 {% if user == current_user %}
                     <p>
-{#                        {% set user_link %}#}
                         <a href="{{ url_for('edit_profile') }}">{{ _('Edit your profile') }}</a>
-{#                        {% endset %}#}
-{#                        {{ _('%(link)', link=user_link) }}#}
                     </p>
 
                     <!-- Follow / unfollow button -->
