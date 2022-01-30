@@ -1,0 +1,21 @@
+<nav aria-label="posts-paginate">
+
+    <ul class="pager">
+
+        <!-- Previous Button -->
+        <li class="previous{% if not prev_url %} disabled{% endif %}">
+            <a href="{{ prev_url or '#' }}">
+                <span aria-hidden="true">&larr;</span> Newer posts
+            </a>
+        </li>
+
+        <!-- Next Button -->
+        <li class="next{% if not next_url %} disabled{% endif %}">
+            <a href="{{ next_url or '#' }}">
+                Older posts <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+
+    </ul>
+
+</nav>

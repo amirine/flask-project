@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block app_content %}
     <table>
         <tr valign="top">
 
@@ -51,19 +51,12 @@
         </tr>
     </table>
 
-    <hr>
-
     <!-- User's own posts -->
     {% for post in posts %}
-        {% include 'post.html' %}
+        {% include '_post.html' %}
     {% endfor %}
 
     <!-- Posts pagination -->
-    {% if prev_url %}
-        <a href="{{ prev_url }}">Newer posts</a>
-    {% endif %}
-    {% if next_url %}
-        <a href="{{ next_url }}">Older posts</a>
-    {% endif %}
+    {% include '_pagination.html' %}
 
 {% endblock %}

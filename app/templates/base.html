@@ -1,43 +1,59 @@
-<html>
+{% extends 'bootstrap/base.html' %}
+{#{% extends 'venv/lib/python3.9/site-packages/flask_bootstrap/templates/bootstrap/base.html' %}#}
 
-<head>
-    <!-- Page title -->
+<!-- Page title block -->
+{% block title %}
     {% if title %}
         <title>{{ title }}</title>
     {% else %}
         <title>Blog</title>
     {% endif %}
-</head>
-<body>
+{% endblock %}
 
 <!-- Navigation Bar -->
-<div>
-    Blog:
-    <a href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('explore') }}">Explore</a>
-    {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">Login</a>
-    {% else %}
-        <a href="{{ url_for('logout') }}">Logout</a>
-        <a href="{{ url_for('user_profile', username=current_user.username) }}">Profile</a>
-    {% endif %}
-</div>
-<hr>
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('index') }}">Flask Blog</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-<!-- Block for flashed messages -->
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
+                <!-- Left part of navbar -->
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('explore') }}">Explore</a></li>
+                </ul>
 
-<!-- Content Block -->
-{% block content %}{% endblock %}
+                <!-- Right part of navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_anonymous %}
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('user_profile', username=current_user.username) }}">Profile</a></li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% endif %}
+                </ul>
 
-</body>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
 
-</html>
+{% block content %}
+    <div class="container">
+
+        <!-- Block for flashed messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Content Block -->
+        {% block app_content %}{% endblock %}
+
+    </div>
+{% endblock %}
