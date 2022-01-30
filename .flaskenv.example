@@ -1,0 +1,15 @@
+# Flask project setup variables
+FLASK_APP=blog.py
+FLASK_DEBUG=
+FLASK_ENV=
+SECRET_KEY=
+
+# Database variables
+DATABASE_URL=
+
+# Variables for email support
+MAIL_SERVER=
+MAIL_PORT=
+MAIL_USE_TLS=
+MAIL_USERNAME=
+MAIL_PASSWORD=
