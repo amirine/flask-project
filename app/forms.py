@@ -23,14 +23,12 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
-    @staticmethod
     def validate_username(self, username):
         """Checks whether username already exists"""
 
         if User.query.filter_by(username=username.data).first():
             raise ValidationError('Please use a different username.')
 
-    @staticmethod
     def validate_email(self, email):
         """Checks whether email already exists"""
 
@@ -54,7 +52,7 @@ class EditProfileForm(FlaskForm):
     def validate_username(self, username):
         """Checks whether edited username already exists. Raises error in case of existence"""
 
-        if username != self.original_username and User.query.filter_by(username=username.data).first():
+        if username.data != self.original_username and User.query.filter_by(username=username.data).first():
             raise ValidationError('Please use a different username.')
 
 
@@ -69,3 +67,18 @@ class PostForm(FlaskForm):
 
     text = StringField('Post text', validators=[Length(min=0, max=128)])
     submit = SubmitField('Submit')
+
+
+class PasswordResetRequestForm(FlaskForm):
+    """Form for password reset request"""
+
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+
+class PasswordResetForm(FlaskForm):
+    """Form for password reset"""
+
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Save')

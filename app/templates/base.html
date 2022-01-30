@@ -1,5 +1,7 @@
 <html>
+
 <head>
+    <!-- Page title -->
     {% if title %}
         <title>{{ title }}</title>
     {% else %}
@@ -7,6 +9,8 @@
     {% endif %}
 </head>
 <body>
+
+<!-- Navigation Bar -->
 <div>
     Blog:
     <a href="{{ url_for('index') }}">Home</a>
@@ -14,11 +18,13 @@
     {% if current_user.is_anonymous %}
         <a href="{{ url_for('login') }}">Login</a>
     {% else %}
-    <a href="{{ url_for('logout') }}">Logout</a>
-    <a href="{{ url_for('user_profile', username=current_user.username) }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        <a href="{{ url_for('user_profile', username=current_user.username) }}">Profile</a>
     {% endif %}
 </div>
 <hr>
+
+<!-- Block for flashed messages -->
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         <ul>
@@ -28,6 +34,10 @@
         </ul>
     {% endif %}
 {% endwith %}
+
+<!-- Content Block -->
 {% block content %}{% endblock %}
+
 </body>
+
 </html>

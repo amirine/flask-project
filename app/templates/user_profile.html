@@ -3,22 +3,35 @@
 {% block content %}
     <table>
         <tr valign="top">
-            <td><img src="{{ user.get_avatar(128) }}"></td>
+
+            <!-- Avatar -->
             <td>
-                {#                <h1>User: {{ user.username }}</h1>#}
-                {#                <h1>Email: {{ user.email }}</h1>#}
-                {#                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}#}
-                {#                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}#}
-                {#                {% if user == current_user %}#}
-                {#                    <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>#}
-                {#                {% endif %}#}
+                <img src="{{ user.get_avatar(128) }}">
+            </td>
+
+            <!-- User info -->
+            <td>
                 <h1>User: {{ user.username }}</h1>
-                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+
+                <!-- About me -->
+                {% if user.about_me %}
+                    <p>{{ user.about_me }}</p>
+                {% endif %}
+
+                <!-- Last seen -->
+                {% if user.last_seen %}
+                    <p>Last seen on: {{ user.last_seen }}</p>
+                {% endif %}
+
+                <!-- Followers and following count -->
                 <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
+
+                <!-- Link for profile edit -->
                 {% if user == current_user %}
                     <p><a href="{{ url_for('edit_profile') }}">Edit your profile</a></p>
-                {% elif not current_user.already_follows_check(user) %}
+
+                    <!-- Follow / unfollow button -->
+                {% elif not current_user.is_following(user) %}
                     <p>
                     <form action="{{ url_for('follow', username=user.username) }}" method="post">
                         {{ form.hidden_tag() }}
@@ -33,17 +46,24 @@
                     </form>
                     </p>
                 {% endif %}
+
             </td>
         </tr>
     </table>
+
     <hr>
+
+    <!-- User's own posts -->
     {% for post in posts %}
         {% include 'post.html' %}
     {% endfor %}
+
+    <!-- Posts pagination -->
     {% if prev_url %}
         <a href="{{ prev_url }}">Newer posts</a>
     {% endif %}
     {% if next_url %}
         <a href="{{ next_url }}">Older posts</a>
     {% endif %}
+
 {% endblock %}

@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
+<!-- User greeting -->
 {% block content %}
     <h1>Hi, {{ current_user.username }}!</h1>
+
+    <!-- Form for post creating -->
     {% if form %}
         <form action="" method="post">
             {{ form.hidden_tag() }}
@@ -15,14 +18,19 @@
             <p>{{ form.submit() }}</p>
         </form>
     {% endif %}
+
+    <!-- Posts from users current user follows -->
     {% for post in posts %}
         {% include 'post.html' %}
     {% endfor %}
+
+    <!-- Posts pagination -->
     {% if prev_url %}
         <a href="{{ prev_url }}">Newer posts</a>
     {% endif %}
     {% if next_url %}
         <a href="{{ next_url }}">Older posts</a>
     {% endif %}
+
 {% endblock %}
 

@@ -4,7 +4,9 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, SubmitForm, PostForm
+from app.email import send_password_reset_email
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, SubmitForm, PostForm, PasswordResetRequestForm, \
+    PasswordResetForm
 from app.models import User, Post
 
 
@@ -12,7 +14,7 @@ from app.models import User, Post
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    """Home Page: displays posts from users you follow"""
+    """Home Page: displays posts from users you follow with pagination"""
 
     form = PostForm()
     if form.validate_on_submit():
@@ -54,7 +56,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if not user or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('index'))
+            return redirect(url_for('login'))
 
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
@@ -135,18 +137,21 @@ def follow(username):
     form = SubmitForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
-        if user is None:
-            flash('User {} not found.'.format(username))
+
+        if not user:
+            flash(f'User {username} not found.')
             return redirect(url_for('index'))
+
         if user == current_user:
             flash('You cannot follow yourself!')
             return redirect(url_for('user_profile', username=username))
+
         current_user.follow(user)
         db.session.commit()
-        flash('You are following {}!'.format(username))
+        flash(f'You are following {username}!')
         return redirect(url_for('user_profile', username=username))
-    else:
-        return redirect(url_for('index'))
+
+    return redirect(url_for('index'))
 
 
 @app.route('/unfollow/<username>', methods=['POST'])
@@ -155,20 +160,64 @@ def unfollow(username):
     """View to unfollow the user. Called by submit button on user profile page"""
 
     form = SubmitForm()
+
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
-        if user is None:
-            flash('User {} not found.'.format(username))
+
+        if not user:
+            flash(f'User {username} not found.')
             return redirect(url_for('index'))
+
         if user == current_user:
             flash('You cannot unfollow yourself!')
             return redirect(url_for('user_profile', username=username))
+
         current_user.unfollow(user)
         db.session.commit()
-        flash('You are not following {}.'.format(username))
+        flash(f'You are not following {username}.')
         return redirect(url_for('user_profile', username=username))
-    else:
+
+    return redirect(url_for('index'))
+
+
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    """View for requesting password reset: user enters email to get token for password reset on email"""
+
+    if current_user.is_authenticated:
         return redirect(url_for('index'))
+
+    form = PasswordResetRequestForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+
+    return render_template('reset_password_request.html', title='Reset Password', form=form)
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    """View for password reset: user updates password"""
+
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    user = User.verify_token_for_password_reset(token)
+    if not user:
+        return redirect(url_for('index'))
+
+    form = PasswordResetForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+
+    return render_template('reset_password_form.html', form=form)
 
 
 @app.before_request
