@@ -1,5 +1,4 @@
 {% extends 'bootstrap/base.html' %}
-{#{% extends 'venv/lib/python3.9/site-packages/flask_bootstrap/templates/bootstrap/base.html' %}#}
 
 <!-- Page title block -->
 {% block title %}
@@ -40,6 +39,7 @@
     </nav>
 {% endblock %}
 
+<!-- Content Block -->
 {% block content %}
     <div class="container">
 
@@ -56,4 +56,10 @@
         {% block app_content %}{% endblock %}
 
     </div>
+{% endblock %}
+
+<!-- Scripts Block -->
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
 {% endblock %}
