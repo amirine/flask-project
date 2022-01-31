@@ -1,6 +1,7 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, jsonify
 from flask_login import logout_user, current_user, login_user, login_required
 from flask_babel import _
+from langdetect import detect, LangDetectException
 from werkzeug.urls import url_parse
 from datetime import datetime
 from flask import g
@@ -11,6 +12,7 @@ from app.email import send_password_reset_email
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, SubmitForm, PostForm, PasswordResetRequestForm, \
     PasswordResetForm
 from app.models import User, Post
+from app.translate import translate
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -21,7 +23,13 @@ def index():
 
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.text.data, user_id=current_user.id)
+
+        try:
+            language = detect(form.text.data)
+        except LangDetectException:
+            language = ''
+
+        post = Post(body=form.text.data, user_id=current_user.id, language=language)
         db.session.add(post)
         db.session.commit()
 
@@ -45,6 +53,17 @@ def explore():
     prev_url = url_for('explore', page=posts.prev_num) if posts.has_prev else None
 
     return render_template('index.html', title='Explore', posts=posts.items, next_url=next_url, prev_url=prev_url)
+
+
+@app.route('/translate', methods=['POST'])
+@login_required
+def translate_post():
+    """View for post text translation. Returns {'text': <translated text>} dictionary"""
+
+    return jsonify({
+        'text': translate(request.form['text_to_translate'], request.form['source_language'],
+                          request.form['destination_language'])
+    })
 
 
 @app.route('/login', methods=['GET', 'POST'])

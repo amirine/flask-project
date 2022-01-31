@@ -7,7 +7,7 @@ class Config(object):
 
     # Secret project key variable
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-    POSTS_PER_PAGE = 3
+    POSTS_PER_PAGE = 5
 
     # Database variables
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
@@ -21,5 +21,6 @@ class Config(object):
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['zhuk.irina.2000@gmail.com']
 
-    # Available languages
+    # Translation variables
     LANGUAGES = ['en', 'ru']
+    MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
