@@ -10,18 +10,23 @@
 
         <!-- User Post -->
         <td>
+
+            <!-- Username and timestamp block -->
             {% set user_link %}
             <a href="{{ url_for('user_profile', username=post.author.username) }}">
                 {{ post.author.username }}</a>
             {% endset %}
             {{ _('%(username)s said %(when)s', username=user_link, when=moment(post.timestamp).fromNow()) }}
             <br>
+
+            <!-- Post body block (changed by 'Translate' click on) -->
             <span id="post_{{ post.id }}">{{ post.body }}</span>
             {% if post.language and post.language != g.locale %}
                 <br>
                 <a href="javascript:translate('#post_{{ post.id }}', '{{ post.body }}', '{{ post.language }}',
                             '{{ g.locale }}');">{{ _('Translate') }}</a>
             {% endif %}
+
         </td>
     </tr>
 

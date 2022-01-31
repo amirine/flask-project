@@ -38,6 +38,17 @@ MAIL_PASSWORD=
 Project's functionality includes password reset and errors sending to the admin email, so all these values are also
 required.
 
+Dynamic translation for posts is also provided, therefore one more environmental variable required:
+
+```sh
+MS_TRANSLATOR_KEY=
+```
+
+To set translator key specified above visit [Azure](https://portal.azure.com/) website. Before you can use the Microsoft
+Translator API, you will need to get an account there. Once you have the Azure account, click on *Create a resource*
+link and select Translator resource. Fill out the form and create a resource. Now you can find 2 keys in the *Keys and
+Endpoint* section, just copy either of them.
+
 Please copy .flaskenv.example content into .flaskenv file and fill the required credentials.
 
 Now you can run <code>flask run</code> command and open up your app running on <code>http://localhost:5000/ </code>.

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-01-30 23:53+0300\n"
+"POT-Creation-Date: 2022-01-31 23:18+0300\n"
 "PO-Revision-Date: 2022-01-30 21:43+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -79,48 +79,56 @@ msgstr "Текст поста"
 msgid "Request Password Reset"
 msgstr "Запрос сброса пароля"
 
-#: app/routes.py:61
+#: app/routes.py:80
 msgid "Invalid username or password"
 msgstr "Непправильное имя пользователя или пароль"
 
-#: app/routes.py:86
+#: app/routes.py:105
 msgid "Congratulations, you are now a registered user!"
 msgstr "Поздравляем, вы зарегистрировались!"
 
-#: app/routes.py:126
+#: app/routes.py:145
 msgid "Your changes have been saved."
 msgstr "Ваши изменения были сохранены."
 
-#: app/routes.py:145 app/routes.py:171
+#: app/routes.py:164 app/routes.py:190
 #, fuzzy
 msgid "User %{username}s not found."
 msgstr "Пользователь: %(username)s"
 
-#: app/routes.py:149
+#: app/routes.py:168
 msgid "You cannot follow yourself!"
 msgstr "Вы не можете подписаться на свой аккаунт!"
 
-#: app/routes.py:154
+#: app/routes.py:173
 msgid "You are following %{username}s!"
 msgstr "Вы подписаны на %{username}s!"
 
-#: app/routes.py:175
+#: app/routes.py:194
 #, fuzzy
 msgid "You cannot unfollow yourself!"
 msgstr "Вы не можете подписаться на свой аккаунт!"
 
-#: app/routes.py:180
+#: app/routes.py:199
 #, fuzzy
 msgid "You are not following %{username}s."
 msgstr "Вы подписаны на %{username}s!"
 
-#: app/routes.py:199
+#: app/routes.py:218
 msgid "Check your email for the instructions to reset your password"
 msgstr "Дальнейшие инструкции по сбросу пародля направлены на вашу почту"
 
-#: app/routes.py:220
+#: app/routes.py:239
 msgid "Your password has been reset."
 msgstr "Ваш пароль был изменен."
+
+#: app/translate.py:11
+msgid "Error: the translation service is not configured."
+msgstr "Ошибка: служба перевода не настроена."
+
+#: app/translate.py:22
+msgid "Error: the translation service failed."
+msgstr "Ошибка: сбой службы перевода."
 
 #: app/templates/404.html:4
 msgid "File Not Found"
@@ -146,10 +154,14 @@ msgstr "Новые посты"
 msgid "Older posts"
 msgstr "Старые посты"
 
-#: app/templates/_post.html:17
+#: app/templates/_post.html:19
 #, python-format
 msgid "%(username)s said %(when)s"
 msgstr "%(username)s сказал(-а) %(when)s"
+
+#: app/templates/_post.html:27
+msgid "Translate"
+msgstr "Перевести"
 
 #: app/templates/base.html:8
 msgid "Blog"
