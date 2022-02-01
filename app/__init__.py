@@ -17,7 +17,7 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
-login.login_view = 'login'
+login.login_view = 'auth.login'
 mail = Mail(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
@@ -26,7 +26,13 @@ babel = Babel(app)
 from app.errors import bp as errors_bp
 app.register_blueprint(errors_bp)
 
-from app import routes, models
+from app.auth import bp as auth_bp
+app.register_blueprint(auth_bp, url_prefix='/auth')
+
+from app.main import bp as main_bp
+app.register_blueprint(main_bp, url_prefix='/main')
+
+from app import models
 
 if not app.debug:
 

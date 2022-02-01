@@ -6,7 +6,7 @@
 
 <!-- Link to register new users -->
 <p>{{ _('New User?') }}
-    <a href="{{ url_for('register') }}">{{ _('Click to Register!') }}</a>
+    <a href="{{ url_for('auth.register') }}">{{ _('Click to Register!') }}</a>
 </p>
 
 <!-- Sign In Form -->
@@ -19,7 +19,7 @@
 <!-- Link for password reset -->
 <p>
     {{ _('Forgot Your Password?') }}
-    <a href="{{ url_for('reset_password_request') }}">{{ _('Click to Reset It') }}</a>
+    <a href="{{ url_for('auth.reset_password_request') }}">{{ _('Click to Reset It') }}</a>
 </p>
 
 {% endblock %}

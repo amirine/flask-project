@@ -2,7 +2,7 @@
 
 function translate(postTextElem, postText, sourceLang, destLang) {
     let current_text = $(postTextElem).text();
-    $.post('/translate', {
+    $.post('/main/translate', {
         text_to_translate: $(postTextElem).text(),
         source_language: sourceLang,
         destination_language: destLang
