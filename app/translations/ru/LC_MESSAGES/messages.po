@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-01-31 23:18+0300\n"
+"POT-Creation-Date: 2022-02-01 23:33+0300\n"
 "PO-Revision-Date: 2022-01-30 21:43+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,109 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: app/email.py:30
-msgid "[Flask Blog] Password Reset"
-msgstr "[Flask Blog] Сброс пароля"
-
-#: app/forms.py:13 app/forms.py:22 app/forms.py:44
-msgid "Username"
-msgstr "Имя пользователя"
-
-#: app/forms.py:14 app/forms.py:24 app/forms.py:84
-msgid "Password"
-msgstr "Пароль"
-
-#: app/forms.py:15
-msgid "Remember Me"
-msgstr "Запомнить меня"
-
-#: app/forms.py:16 app/templates/login.html:5
-msgid "Sign In"
-msgstr "Войти"
-
-#: app/forms.py:23 app/forms.py:77
-msgid "Email"
-msgstr "Email"
-
-#: app/forms.py:25 app/forms.py:85
-msgid "Repeat Password"
-msgstr "Повторить пароль"
-
-#: app/forms.py:26 app/templates/register.html:5
-msgid "Register"
-msgstr "Зарегистрироваться"
-
-#: app/forms.py:32 app/forms.py:58
-msgid "Please use a different username."
-msgstr "Пожалуйста, используйте другое имя."
-
-#: app/forms.py:38
-msgid "Please use a different email address."
-msgstr "Пожалуйста, используйте другой адрес электоронной почты."
-
-#: app/forms.py:45
-msgid "About me"
-msgstr "Обо мне"
-
-#: app/forms.py:46 app/forms.py:71 app/forms.py:86
-msgid "Save"
-msgstr "Сохранить"
-
-#: app/forms.py:64
-msgid "Submit"
-msgstr "Подтвердить"
-
-#: app/forms.py:70
-msgid "Post text"
-msgstr "Текст поста"
-
-#: app/forms.py:78
-msgid "Request Password Reset"
-msgstr "Запрос сброса пароля"
-
-#: app/routes.py:80
-msgid "Invalid username or password"
-msgstr "Непправильное имя пользователя или пароль"
-
-#: app/routes.py:105
-msgid "Congratulations, you are now a registered user!"
-msgstr "Поздравляем, вы зарегистрировались!"
-
-#: app/routes.py:145
-msgid "Your changes have been saved."
-msgstr "Ваши изменения были сохранены."
-
-#: app/routes.py:164 app/routes.py:190
-#, fuzzy
-msgid "User %{username}s not found."
-msgstr "Пользователь: %(username)s"
-
-#: app/routes.py:168
-msgid "You cannot follow yourself!"
-msgstr "Вы не можете подписаться на свой аккаунт!"
-
-#: app/routes.py:173
-msgid "You are following %{username}s!"
-msgstr "Вы подписаны на %{username}s!"
-
-#: app/routes.py:194
-#, fuzzy
-msgid "You cannot unfollow yourself!"
-msgstr "Вы не можете подписаться на свой аккаунт!"
-
-#: app/routes.py:199
-#, fuzzy
-msgid "You are not following %{username}s."
-msgstr "Вы подписаны на %{username}s!"
-
-#: app/routes.py:218
-msgid "Check your email for the instructions to reset your password"
-msgstr "Дальнейшие инструкции по сбросу пародля направлены на вашу почту"
-
-#: app/routes.py:239
-msgid "Your password has been reset."
-msgstr "Ваш пароль был изменен."
-
 #: app/translate.py:11
 msgid "Error: the translation service is not configured."
 msgstr "Ошибка: служба перевода не настроена."
@@ -130,21 +27,109 @@ msgstr "Ошибка: служба перевода не настроена."
 msgid "Error: the translation service failed."
 msgstr "Ошибка: сбой службы перевода."
 
-#: app/templates/404.html:4
-msgid "File Not Found"
-msgstr "Файл не найден"
+#: app/auth/email.py:30
+msgid "[Flask Blog] Password Reset"
+msgstr "[Flask Blog] Сброс пароля"
 
-#: app/templates/404.html:5 app/templates/500.html:6
-msgid "Back"
-msgstr "Назад"
+#: app/auth/forms.py:13 app/auth/forms.py:22 app/main/forms.py:13
+msgid "Username"
+msgstr "Имя пользователя"
 
-#: app/templates/500.html:4
-msgid "An unexpected error has occurred"
-msgstr "Произошла непредвиденная ошибка"
+#: app/auth/forms.py:14 app/auth/forms.py:24 app/auth/forms.py:51
+msgid "Password"
+msgstr "Пароль"
 
-#: app/templates/500.html:5
-msgid "The administrator has been notified. Sorry for the inconvenience!"
-msgstr "Администратор был уведомлен. Извините за причиненные неудобства!"
+#: app/auth/forms.py:15
+msgid "Remember Me"
+msgstr "Запомнить меня"
+
+#: app/auth/forms.py:16 app/templates/auth/login.html:5
+msgid "Sign In"
+msgstr "Войти"
+
+#: app/auth/forms.py:23 app/auth/forms.py:44
+msgid "Email"
+msgstr "Email"
+
+#: app/auth/forms.py:25 app/auth/forms.py:52
+msgid "Repeat Password"
+msgstr "Повторить пароль"
+
+#: app/auth/forms.py:26 app/templates/auth/register.html:5
+msgid "Register"
+msgstr "Зарегистрироваться"
+
+#: app/auth/forms.py:32 app/main/forms.py:27
+msgid "Please use a different username."
+msgstr "Пожалуйста, используйте другое имя."
+
+#: app/auth/forms.py:38
+msgid "Please use a different email address."
+msgstr "Пожалуйста, используйте другой адрес электоронной почты."
+
+#: app/auth/forms.py:45
+msgid "Request Password Reset"
+msgstr "Запрос сброса пароля"
+
+#: app/auth/forms.py:53 app/main/forms.py:15 app/main/forms.py:40
+msgid "Save"
+msgstr "Сохранить"
+
+#: app/auth/routes.py:24
+msgid "Invalid username or password"
+msgstr "Непправильное имя пользователя или пароль"
+
+#: app/auth/routes.py:49
+msgid "Congratulations, you are now a registered user!"
+msgstr "Поздравляем, вы зарегистрировались!"
+
+#: app/auth/routes.py:76
+msgid "Check your email for the instructions to reset your password"
+msgstr "Дальнейшие инструкции по сбросу пародля направлены на вашу почту"
+
+#: app/auth/routes.py:97
+msgid "Your password has been reset."
+msgstr "Ваш пароль был изменен."
+
+#: app/main/forms.py:14
+msgid "About me"
+msgstr "Обо мне"
+
+#: app/main/forms.py:33
+msgid "Submit"
+msgstr "Подтвердить"
+
+#: app/main/forms.py:39
+msgid "Post text"
+msgstr "Текст поста"
+
+#: app/main/routes.py:93
+msgid "Your changes have been saved."
+msgstr "Ваши изменения были сохранены."
+
+#: app/main/routes.py:112 app/main/routes.py:138
+#, fuzzy, python-format
+msgid "User %(username)s not found."
+msgstr "Пользователь %(username)s не найден."
+
+#: app/main/routes.py:116
+msgid "You cannot follow yourself!"
+msgstr "Вы не можете подписаться на свой аккаунт!"
+
+#: app/main/routes.py:121
+#, fuzzy, python-format
+msgid "You are following %(username)s!"
+msgstr "Вы подписаны на %(username)s!"
+
+#: app/main/routes.py:142
+#, fuzzy
+msgid "You cannot unfollow yourself!"
+msgstr "Вы не можете подписаться на свой аккаунт!"
+
+#: app/main/routes.py:147
+#, fuzzy, python-format
+msgid "You are not following %(username)s."
+msgstr "Вы больше не подписаны на %(username)s."
 
 #: app/templates/_pagination.html:8
 msgid "Newer posts"
@@ -187,65 +172,29 @@ msgstr "Профиль"
 msgid "Logout"
 msgstr "Выйти"
 
-#: app/templates/edit_profile.html:5
-msgid "Edit Profile"
-msgstr "Редактировать профиль"
-
-#: app/templates/index.html:6
-#, python-format
-msgid "Hi, %(username)s!"
-msgstr "Привет, %(username)s!"
-
-#: app/templates/login.html:8
+#: app/templates/auth/login.html:8
 msgid "New User?"
 msgstr "Новый пользователь?"
 
-#: app/templates/login.html:9
+#: app/templates/auth/login.html:9
 msgid "Click to Register!"
 msgstr "Нажмите, чтобы зарегистрироваться!"
 
-#: app/templates/login.html:21
+#: app/templates/auth/login.html:21
 msgid "Forgot Your Password?"
 msgstr "Забыли пароль?"
 
-#: app/templates/login.html:22
+#: app/templates/auth/login.html:22
 msgid "Click to Reset It"
 msgstr "Нажмите, чтобы сбросить его"
 
-#: app/templates/reset_password_form.html:5
+#: app/templates/auth/reset_password_form.html:5
 msgid "Reset Your Password"
 msgstr "Сбросить пароль"
 
-#: app/templates/reset_password_request.html:5
+#: app/templates/auth/reset_password_request.html:5
 msgid "Reset Password"
 msgstr "Сбросить пароль"
-
-#: app/templates/user_profile.html:14
-#, python-format
-msgid "User: %(username)s"
-msgstr "Пользователь: %(username)s"
-
-#: app/templates/user_profile.html:23
-#, python-format
-msgid "Last seen: %(last_seen)s"
-msgstr "Был(-а) в сети: %(last_seen)s"
-
-#: app/templates/user_profile.html:27
-#, python-format
-msgid "%(followers)d followers, %(following)d following"
-msgstr "%(followers)d подписчики, %(following)d подписки"
-
-#: app/templates/user_profile.html:33
-msgid "Edit your profile"
-msgstr "Редактировать профиль"
-
-#: app/templates/user_profile.html:41
-msgid "Follow"
-msgstr "Подписаться"
-
-#: app/templates/user_profile.html:48
-msgid "Unfollow"
-msgstr "Отменить подписку"
 
 #: app/templates/email/reset_password.html:1
 #, python-format
@@ -278,4 +227,56 @@ msgstr "С уважением,"
 #: app/templates/email/reset_password.html:12
 msgid "The Flask Blog Team"
 msgstr "Команда The Flask Blog"
+
+#: app/templates/errors/404.html:4
+msgid "File Not Found"
+msgstr "Файл не найден"
+
+#: app/templates/errors/404.html:5 app/templates/errors/500.html:6
+msgid "Back"
+msgstr "Назад"
+
+#: app/templates/errors/500.html:4
+msgid "An unexpected error has occurred"
+msgstr "Произошла непредвиденная ошибка"
+
+#: app/templates/errors/500.html:5
+msgid "The administrator has been notified. Sorry for the inconvenience!"
+msgstr "Администратор был уведомлен. Извините за причиненные неудобства!"
+
+#: app/templates/main/edit_profile.html:5
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: app/templates/main/index.html:6
+#, python-format
+msgid "Hi, %(username)s!"
+msgstr "Привет, %(username)s!"
+
+#: app/templates/main/user_profile.html:14
+#, python-format
+msgid "User: %(username)s"
+msgstr "Пользователь: %(username)s"
+
+#: app/templates/main/user_profile.html:23
+#, python-format
+msgid "Last seen: %(last_seen)s"
+msgstr "Был(-а) в сети: %(last_seen)s"
+
+#: app/templates/main/user_profile.html:27
+#, python-format
+msgid "%(followers)d followers, %(following)d following"
+msgstr "%(followers)d подписчики, %(following)d подписки"
+
+#: app/templates/main/user_profile.html:33
+msgid "Edit your profile"
+msgstr "Редактировать профиль"
+
+#: app/templates/main/user_profile.html:41
+msgid "Follow"
+msgstr "Подписаться"
+
+#: app/templates/main/user_profile.html:48
+msgid "Unfollow"
+msgstr "Отменить подписку"
 
