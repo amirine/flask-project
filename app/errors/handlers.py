@@ -1,15 +1,17 @@
 from flask import render_template
-from app import app, db
+
+from app import db
+from app.errors import bp
 
 
-@app.errorhandler(404)
+@bp.errorhandler(404)
 def not_found_error(error):
     """Custom page for 404 error"""
 
     return render_template('errors/404.html'), 404
 
 
-@app.errorhandler(500)
+@bp.errorhandler(500)
 def internal_error(error):
     """Custom page for 500 error"""
 

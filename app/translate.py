@@ -1,7 +1,6 @@
 import requests
 from flask_babel import _
-
-from app import app
+from flask import current_app as app
 
 
 def translate(text_to_translate: str, source_language: str, destination_language: str) -> str:

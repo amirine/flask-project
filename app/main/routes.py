@@ -5,8 +5,9 @@ from langdetect import detect, LangDetectException
 from datetime import datetime
 from flask import g
 from flask_babel import get_locale
+from flask import current_app as app
 
-from app import app, db
+from app import db
 from app.main import bp
 from app.main.forms import EditProfileForm, SubmitForm, PostForm
 from app.models import User, Post
@@ -161,10 +162,3 @@ def before_request():
 
     # Sets locale for dates on pages
     g.locale = str(get_locale())
-
-
-@app.shell_context_processor
-def make_shell_context():
-    """Allows to use database models in shell with no import"""
-
-    return {'db': db, 'User': User, 'Post': Post}

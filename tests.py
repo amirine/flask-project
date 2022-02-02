@@ -1,8 +1,8 @@
 import unittest
 from datetime import datetime, timedelta
 from hashlib import md5
-# from flask import current_app as app
-from app import app, db
+from flask import current_app as app
+from app import db
 from app.models import User, Post
 
 

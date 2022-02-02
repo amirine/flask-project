@@ -1,12 +1,13 @@
 import jwt
 from flask_login import UserMixin
+from flask import current_app as app
 from flask_sqlalchemy import BaseQuery
 from werkzeug.security import generate_password_hash, check_password_hash
 from hashlib import md5
 from datetime import datetime
 from time import time
 
-from app import app, db, login
+from app import db, login
 
 # Table for followers
 followers = db.Table('followers',
