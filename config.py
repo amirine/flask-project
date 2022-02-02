@@ -1,10 +1,12 @@
 import os
 
+from dotenv import load_dotenv
+
 basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 
 
 class Config(object):
-
     # Secret project key variable
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     POSTS_PER_PAGE = 5
@@ -24,3 +26,8 @@ class Config(object):
     # Translation variables
     LANGUAGES = ['en', 'ru']
     MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
+
+
+class TestConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite://'

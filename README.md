@@ -5,17 +5,12 @@ Getting Started
 
 To start the project some environment variables are needed.
 
-Flask project setup variables:
+Secret key variable:
 
 ```sh
-FLASK_APP=blog.py
-FLASK_DEBUG=
-FLASK_ENV=
 SECRET_KEY=
 ```
 
-Note that the variable <code>FLASK_APP=blog.py</code> has a constant value based on project's file name, <code>
-FLASK_DEBUG</code> variable, that indicates whether debug mode is available, can be set to 0 or 1. <code>
 SECRET_KEY</code> may not be filled in as it has a default value in project's code, still that's not a good practice for
 the production, so please enter this value.
 
@@ -49,7 +44,7 @@ Translator API, you will need to get an account there. Once you have the Azure a
 link and select Translator resource. Fill out the form and create a resource. Now you can find 2 keys in the *Keys and
 Endpoint* section, just copy either of them.
 
-Please copy .flaskenv.example content into .flaskenv file and fill the required credentials.
+Please copy .env.example content into .env file and fill the required credentials.
 
 Now you can run <code>flask run</code> command and open up your app running on <code>http://localhost:5000/ </code>.
 

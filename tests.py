@@ -1,8 +1,9 @@
 import unittest
 from datetime import datetime, timedelta
 from hashlib import md5
-from flask import current_app as app
-from app import db
+
+import config
+from app import db, create_app
 from app.models import User, Post
 
 
@@ -11,10 +12,9 @@ class UserModelTest(unittest.TestCase):
     def setUp(self) -> None:
         """Creates database for testing"""
 
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
-        print(app.config['SQLALCHEMY_DATABASE_URI'])
-        print(app.config['MAIL_SERVER'])
-        print(app.config['MAIL_USE_TLS'])
+        self.app = create_app(config.TestConfig)
+        self.app_context = self.app.app_context()
+        self.app_context.push()
         db.create_all()
 
     def tearDown(self) -> None:
@@ -22,6 +22,7 @@ class UserModelTest(unittest.TestCase):
 
         db.session.remove()
         db.drop_all()
+        self.app_context.pop()
 
     def test_password_hashing(self) -> None:
         """Testing password hashing"""
@@ -55,8 +56,8 @@ class UserModelTest(unittest.TestCase):
         self.assertEqual(user1.followers.count(), 0)
         self.assertEqual(user2.followed.count(), 0)
         self.assertEqual(user2.followers.count(), 1)
-        self.assertTrue(user1.already_follows_check(user2))
-        self.assertFalse(user2.already_follows_check(user1))
+        self.assertTrue(user1.is_following(user2))
+        self.assertFalse(user2.is_following(user1))
 
     def test_followed_posts(self):
         """Testing followed posts"""
@@ -85,10 +86,10 @@ class UserModelTest(unittest.TestCase):
         db.session.commit()
 
         # Testing posts
-        self.assertEqual(user1.followed_posts().all(), [post2, post4, post1])
-        self.assertEqual(user2.followed_posts().all(), [post2, post3])
-        self.assertEqual(user3.followed_posts().all(), [post3, post4])
-        self.assertEqual(user4.followed_posts().all(), [post4])
+        self.assertEqual(user1.get_posts_from_followed_users().all(), [post2, post4, post1])
+        self.assertEqual(user2.get_posts_from_followed_users().all(), [post2, post3])
+        self.assertEqual(user3.get_posts_from_followed_users().all(), [post3, post4])
+        self.assertEqual(user4.get_posts_from_followed_users().all(), [post4])
 
 
 if __name__ == '__main__':
