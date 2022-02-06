@@ -1,3 +1,5 @@
+/* Displays user popup */
+
 $(function () {
     var timer = null;
     var xhr = null;

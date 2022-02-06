@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-02-06 20:40+0300\n"
+"POT-Creation-Date: 2022-02-06 22:40+0300\n"
 "PO-Revision-Date: 2022-01-30 21:43+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -143,12 +143,12 @@ msgstr "Вы не можете подписаться на свой аккаун
 msgid "You are not following %(username)s."
 msgstr "Вы больше не подписаны на %(username)s."
 
-#: app/main/routes.py:201
+#: app/main/routes.py:202
 #, fuzzy
 msgid "Your message has been sent."
 msgstr "Ваш пароль был изменен."
 
-#: app/main/routes.py:204
+#: app/main/routes.py:205
 msgid "Send Message"
 msgstr "Отправить сообщение"
 

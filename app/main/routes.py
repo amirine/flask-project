@@ -10,7 +10,7 @@ from flask import current_app as app
 from app import db
 from app.main import bp
 from app.main.forms import EditProfileForm, SubmitForm, PostForm, SearchForm, MessageForm
-from app.models import User, Post, Message
+from app.models import User, Post, Message, Notification
 from app.translate import translate
 
 
@@ -196,6 +196,7 @@ def send_message(recipient):
 
     if form.validate_on_submit():
         msg = Message(author=current_user, recipient=user, body=form.message.data)
+        user.add_notification('unread_message_count', user.new_messages())
         db.session.add(msg)
         db.session.commit()
         flash(_('Your message has been sent.'))
@@ -210,6 +211,7 @@ def messages():
     """Displays new messages for the current user"""
 
     current_user.last_message_read_time = datetime.utcnow()
+    current_user.add_notification('unread_message_count', 0)
     db.session.commit()
     page = request.args.get('page', 1, type=int)
     messages = current_user.messages_received.order_by(Message.timestamp.desc()).paginate(
@@ -225,6 +227,24 @@ def messages():
         prev_url = url_for('main.messages', page=messages.prev_num)
 
     return render_template('main/messages.html', messages=messages.items, next_url=next_url, prev_url=prev_url)
+
+
+@bp.route('/notifications')
+@login_required
+def notifications():
+    """Returns notifications for the user"""
+
+    since = request.args.get('since', 0.0, type=float)
+    notifications = current_user.notifications.filter(
+        Notification.timestamp > since).order_by(Notification.timestamp.asc())
+
+    return jsonify([
+        {
+            'name': notification.name,
+            'data': notification.get_data(),
+            'timestamp': notification.timestamp
+        } for notification in notifications
+    ])
 
 
 @bp.before_request

@@ -1,3 +1,4 @@
+import json
 import jwt
 from flask_login import UserMixin
 from flask import current_app as app
@@ -16,6 +17,17 @@ followers = db.Table('followers',
                      db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
                      db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
                      )
+
+
+class Notification(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    timestamp = db.Column(db.Float, index=True, default=time)
+    payload_json = db.Column(db.Text)
+
+    def get_data(self):
+        return json.loads(str(self.payload_json))
 
 
 class User(UserMixin, db.Model):
@@ -39,6 +51,7 @@ class User(UserMixin, db.Model):
     messages_received = db.relationship('Message', foreign_keys='Message.recipient_id', backref='recipient',
                                         lazy='dynamic')
     last_message_read_time = db.Column(db.DateTime)
+    notifications = db.relationship('Notification', backref='user', lazy='dynamic')
 
     def set_password(self, password: str) -> None:
         """Generates password hash for input password"""
@@ -103,6 +116,15 @@ class User(UserMixin, db.Model):
 
         last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
         return Message.query.filter_by(recipient=self).filter(Message.timestamp > last_read_time).count()
+
+    def add_notification(self, name: str, data: int) -> Notification:
+        """Returns notification for the unread message"""
+
+        self.notifications.filter_by(name=name).delete()
+        notification = Notification(name=name, payload_json=json.dumps(data), user=self)
+        db.session.add(notification)
+
+        return notification
 
     def __repr__(self):
         return f"{self.username}"
