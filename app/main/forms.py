@@ -1,3 +1,4 @@
+from flask import request
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, Length
@@ -38,3 +39,16 @@ class PostForm(FlaskForm):
 
     text = StringField(_l('Post text'), validators=[Length(min=0, max=128)])
     submit = SubmitField(_l('Save'))
+
+
+class SearchForm(FlaskForm):
+    """Form for searching posts"""
+
+    text = StringField(_l('Search'), validators=[DataRequired()])
+
+    def __init__(self, *args, **kwargs):
+        if 'formdata' not in kwargs:
+            kwargs['formdata'] = request.args
+        if 'meta' not in kwargs:
+            kwargs['meta'] = {'csrf': False}
+        super().__init__(*args, **kwargs)

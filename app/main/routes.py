@@ -9,7 +9,7 @@ from flask import current_app as app
 
 from app import db
 from app.main import bp
-from app.main.forms import EditProfileForm, SubmitForm, PostForm
+from app.main.forms import EditProfileForm, SubmitForm, PostForm, SearchForm
 from app.models import User, Post
 from app.translate import translate
 
@@ -151,6 +151,30 @@ def unfollow(username):
     return redirect(url_for('main.index'))
 
 
+@bp.route('/search')
+@login_required
+def search():
+    """View handling search form input. Returns posts satisfying the search"""
+
+    if not g.search_form.validate():
+        return redirect(url_for('main.explore'))
+
+    page = request.args.get('page', 1, type=int)
+    posts, total = Post.search(g.search_form.text.data, page, app.config['POSTS_PER_PAGE'])
+
+    next_url = None
+    prev_url = None
+
+    if total > page * app.config['POSTS_PER_PAGE']:
+        next_url = url_for('main.search', text=g.search_form.q.data, page=page + 1)
+
+    if page > 1:
+        prev_url = url_for('main.search', text=g.search_form.text.data, page=page - 1)
+
+    return render_template('main/search.html', title=_('Search'), posts=posts.all(),
+                           next_url=next_url, prev_url=prev_url)
+
+
 @bp.before_request
 def before_request():
     """Sets {last_seen} date and local dates for the user before the page request"""
@@ -159,6 +183,7 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+        g.search_form = SearchForm()
 
     # Sets locale for dates on pages
     g.locale = str(get_locale())

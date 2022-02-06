@@ -24,6 +24,16 @@
                     <li><a href="{{ url_for('main.explore') }}">{{ _('Explore') }}</a></li>
                 </ul>
 
+                <!-- Search form -->
+                {% if g.search_form %}
+                    <form class="navbar-form navbar-left" method="get" action="{{ url_for('main.search') }}">
+                        <div class="form-group">
+                            {{ g.search_form.text(size=20, class='form-control',
+                            placeholder=g.search_form.text.label.text) }}
+                        </div>
+                    </form>
+                {% endif %}
+
                 <!-- Right part of navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
