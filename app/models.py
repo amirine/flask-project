@@ -35,6 +35,10 @@ class User(UserMixin, db.Model):
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic'
     )
+    messages_sent = db.relationship('Message', foreign_keys='Message.sender_id', backref='author', lazy='dynamic')
+    messages_received = db.relationship('Message', foreign_keys='Message.recipient_id', backref='recipient',
+                                        lazy='dynamic')
+    last_message_read_time = db.Column(db.DateTime)
 
     def set_password(self, password: str) -> None:
         """Generates password hash for input password"""
@@ -94,6 +98,12 @@ class User(UserMixin, db.Model):
         except:
             return None
 
+    def new_messages(self) -> int:
+        """Returns the number of unread messages the user has"""
+
+        last_read_time = self.last_message_read_time or datetime(1900, 1, 1)
+        return Message.query.filter_by(recipient=self).filter(Message.timestamp > last_read_time).count()
+
     def __repr__(self):
         return f"{self.username}"
 
@@ -110,6 +120,19 @@ class Post(SearchableMixin, db.Model):
 
     def __repr__(self):
         return f"Post {self.id} from user {self.user_id}"
+
+
+class Message(db.Model):
+    """Model for private messages"""
+
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(256))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return f"Message {self.id} from user {self.sender_id} to user {self.recipient_id}"
 
 
 @login.user_loader

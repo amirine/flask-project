@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-02-06 16:53+0300\n"
+"POT-Creation-Date: 2022-02-06 20:40+0300\n"
 "PO-Revision-Date: 2022-01-30 21:43+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -107,6 +107,14 @@ msgstr "Текст поста"
 msgid "Search"
 msgstr "Поиск"
 
+#: app/main/forms.py:60
+msgid "Message"
+msgstr "Сообщение"
+
+#: app/main/forms.py:61
+msgid "Send"
+msgstr "Отправить"
+
 #: app/main/routes.py:94
 msgid "Your changes have been saved."
 msgstr "Ваши изменения были сохранены."
@@ -135,13 +143,22 @@ msgstr "Вы не можете подписаться на свой аккаун
 msgid "You are not following %(username)s."
 msgstr "Вы больше не подписаны на %(username)s."
 
+#: app/main/routes.py:201
+#, fuzzy
+msgid "Your message has been sent."
+msgstr "Ваш пароль был изменен."
+
+#: app/main/routes.py:204
+msgid "Send Message"
+msgstr "Отправить сообщение"
+
 #: app/templates/_pagination.html:8
-msgid "Newer posts"
-msgstr "Новые посты"
+msgid "Newer"
+msgstr "Новые"
 
 #: app/templates/_pagination.html:15
-msgid "Older posts"
-msgstr "Старые посты"
+msgid "Older"
+msgstr "Старые"
 
 #: app/templates/_post.html:23
 #, python-format
@@ -164,15 +181,19 @@ msgstr "Главная"
 msgid "Explore"
 msgstr "Все посты"
 
-#: app/templates/base.html:40
+#: app/templates/base.html:43
 msgid "Login"
 msgstr "Войти"
 
-#: app/templates/base.html:43
+#: app/templates/base.html:49
 msgid "Profile"
 msgstr "Профиль"
 
-#: app/templates/base.html:45
+#: app/templates/base.html:53 app/templates/main/messages.html:5
+msgid "Messages"
+msgstr "Сообщения"
+
+#: app/templates/base.html:63
 msgid "Logout"
 msgstr "Выйти"
 
@@ -265,6 +286,11 @@ msgstr "Результаты поиска"
 msgid "Results not found"
 msgstr "Ничего не найдено"
 
+#: app/templates/main/send_message.html:6
+#, python-format
+msgid "Send Message to %(recipient)s"
+msgstr "Отправить сообщение %(recipient)s"
+
 #: app/templates/main/user_popup.html:23
 msgid "Last seen on"
 msgstr "Был(-а) в сети"
@@ -307,3 +333,7 @@ msgstr "%(followers)d подписчики, %(following)d подписки"
 #: app/templates/main/user_profile.html:33
 msgid "Edit your profile"
 msgstr "Редактировать профиль"
+
+#: app/templates/main/user_profile.html:57
+msgid "Send private message"
+msgstr "Отправить личное сообщение"

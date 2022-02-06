@@ -9,8 +9,8 @@ from flask import current_app as app
 
 from app import db
 from app.main import bp
-from app.main.forms import EditProfileForm, SubmitForm, PostForm, SearchForm
-from app.models import User, Post
+from app.main.forms import EditProfileForm, SubmitForm, PostForm, SearchForm, MessageForm
+from app.models import User, Post, Message
 from app.translate import translate
 
 
@@ -184,6 +184,47 @@ def user_popup(username):
     form = SubmitForm()
 
     return render_template('main/user_popup.html', user=user, form=form)
+
+
+@bp.route('/send_message/<recipient>', methods=['GET', 'POST'])
+@login_required
+def send_message(recipient):
+    """View for sending private messages"""
+
+    user = User.query.filter_by(username=recipient).first_or_404()
+    form = MessageForm()
+
+    if form.validate_on_submit():
+        msg = Message(author=current_user, recipient=user, body=form.message.data)
+        db.session.add(msg)
+        db.session.commit()
+        flash(_('Your message has been sent.'))
+        return redirect(url_for('main.user_profile', username=recipient))
+
+    return render_template('main/send_message.html', title=_('Send Message'), form=form, recipient=recipient)
+
+
+@bp.route('/messages')
+@login_required
+def messages():
+    """Displays new messages for the current user"""
+
+    current_user.last_message_read_time = datetime.utcnow()
+    db.session.commit()
+    page = request.args.get('page', 1, type=int)
+    messages = current_user.messages_received.order_by(Message.timestamp.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE'], False)
+
+    next_url = None
+    prev_url = None
+
+    if messages.has_next:
+        next_url = url_for('main.messages', page=messages.next_num)
+
+    if messages.has_prev:
+        prev_url = url_for('main.messages', page=messages.prev_num)
+
+    return render_template('main/messages.html', messages=messages.items, next_url=next_url, prev_url=prev_url)
 
 
 @bp.before_request

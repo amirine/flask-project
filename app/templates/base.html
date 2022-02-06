@@ -36,14 +36,34 @@
 
                 <!-- Right part of navbar -->
                 <ul class="nav navbar-nav navbar-right">
+
                     {% if current_user.is_anonymous %}
+
+                        <!-- Login -->
                         <li><a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a></li>
+
                     {% else %}
+
+                        <!-- Profile -->
                         <li><a href="{{ url_for('main.user_profile', username=current_user.username) }}">
                             {{ _('Profile') }}</a></li>
 
+                        <!-- Messages -->
+                        <li>
+                            <a href="{{ url_for('main.messages') }}">{{ _('Messages') }}
+                            {% set new_messages = current_user.new_messages() %}
+                            <span id="message_count" class="badge" style="visibility: {% if new_messages %}visible
+                                {% else %}hidden {% endif %};">
+                                {{ new_messages }}
+                            </span>
+                            </a>
+                        </li>
+
+                        <!-- Logout -->
                         <li><a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a></li>
+
                     {% endif %}
+
                 </ul>
 
             </div>
