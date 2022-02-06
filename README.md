@@ -11,7 +11,7 @@ Secret key variable:
 SECRET_KEY=
 ```
 
-SECRET_KEY</code> may not be filled in as it has a default value in project's code, still that's not a good practice for
+<code>SECRET_KEY</code> may not be filled in as it has a default value in project's code, still that's not a good practice for
 the production, so please enter this value.
 
 Database variables:
@@ -19,6 +19,14 @@ Database variables:
 ```sh
 DATABASE_URL=
 ```
+
+Variable for Elasticsearch:
+
+```sh
+ELASTICSEARCH_URL=
+```
+
+Usually <code>ELASTICSEARCH_URL=http://localhost:9200 </code> is taken.
 
 Variables for email support:
 
@@ -46,7 +54,7 @@ Endpoint* section, just copy either of them.
 
 Please copy .env.example content into .env file and fill the required credentials.
 
-Now you can run <code>flask run</code> command and open up your app running on <code>http://localhost:5000/ </code>.
+Now you can run <code>flask run</code> command and open up your app running on localhost.
 
 Database setup
 -------------------------

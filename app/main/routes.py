@@ -175,6 +175,17 @@ def search():
                            next_url=next_url, prev_url=prev_url)
 
 
+@bp.route('/user/<username>/popup')
+@login_required
+def user_popup(username):
+    """Popup for user's info display"""
+
+    user = User.query.filter_by(username=username).first_or_404()
+    form = SubmitForm()
+
+    return render_template('main/user_popup.html', user=user, form=form)
+
+
 @bp.before_request
 def before_request():
     """Sets {last_seen} date and local dates for the user before the page request"""
