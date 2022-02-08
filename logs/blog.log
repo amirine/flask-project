@@ -93,3 +93,6 @@ Traceback (most recent call last):
   File "/Users/ira/PycharmProjects/flask_project/venv/lib/python3.9/site-packages/werkzeug/routing.py", line 2314, in build
     raise BuildError(endpoint, values, method, self)
 werkzeug.routing.BuildError: Could not build url for endpoint 'user' with values ['username']. Did you mean 'user_profile' instead?
+2022-02-08 20:46:58,980 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/./app/__init__.py:85]
+2022-02-08 20:48:12,967 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/./app/__init__.py:85]
+2022-02-08 20:50:27,255 INFO: Flask Blog project [in /Users/ira/PycharmProjects/flask_project/./app/__init__.py:85]

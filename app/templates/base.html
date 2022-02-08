@@ -75,6 +75,20 @@
 {% block content %}
     <div class="container">
 
+        <!-- Block for progressbar -->
+        {% if current_user.is_authenticated %}
+            {% with tasks = current_user.get_tasks_in_progress() %}
+            {% if tasks %}
+                {% for task in tasks %}
+                    <div class="alert alert-success" role="alert">
+                        {{ task.description }}
+                        <span id="{{ task.id }}-progress">{{ task.get_progress() }}</span>%
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        {% endif %}
+
         <!-- Block for flashed messages -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -97,8 +111,8 @@
     {{ moment.lang(g.locale) }}
     <script type="text/javascript" src='{{ url_for('static', filename='js/post_translation.js') }}'></script>
     <script type="text/javascript" src='{{ url_for('static', filename='js/user_popup.js') }}'></script>
-
     {% if current_user.is_authenticated %}
         <script type="text/javascript" src='{{ url_for('static', filename='js/notifications.js') }}'></script>
+        <script type="text/javascript" src='{{ url_for('static', filename='js/progressbar.js') }}'></script>
     {% endif %}
 {% endblock %}

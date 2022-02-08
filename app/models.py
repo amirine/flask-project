@@ -1,5 +1,7 @@
 import json
 import jwt
+import redis
+import rq
 from flask_login import UserMixin
 from flask import current_app as app
 from flask_sqlalchemy import BaseQuery
@@ -30,6 +32,32 @@ class Notification(db.Model):
         return json.loads(str(self.payload_json))
 
 
+class Task(db.Model):
+    """Model for tasks"""
+
+    id = db.Column(db.String(36), primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    description = db.Column(db.String(128))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    complete = db.Column(db.Boolean, default=False)
+
+    def get_rq_job(self) -> rq.job.Job:
+        """Gets Job instance by task id. Returns None in case the job has been already finished"""
+
+        try:
+            rq_job = rq.job.Job.fetch(self.id, connection=app.redis)
+        except (redis.exceptions.RedisError, rq.exceptions.NoSuchJobError):
+            return None
+
+        return rq_job
+
+    def get_progress(self):
+        """Returns the progress percentage for the task"""
+
+        job = self.get_rq_job()
+        return job.meta.get('progress', 0) if job else 100
+
+
 class User(UserMixin, db.Model):
     """Model for User"""
 
@@ -52,6 +80,7 @@ class User(UserMixin, db.Model):
                                         lazy='dynamic')
     last_message_read_time = db.Column(db.DateTime)
     notifications = db.relationship('Notification', backref='user', lazy='dynamic')
+    tasks = db.relationship('Task', backref='user', lazy='dynamic')
 
     def set_password(self, password: str) -> None:
         """Generates password hash for input password"""
@@ -125,6 +154,25 @@ class User(UserMixin, db.Model):
         db.session.add(notification)
 
         return notification
+
+    def launch_task(self, name: str, description: str, *args, **kwargs) -> Task:
+        """Adds a task to the RQ queue and the database"""
+
+        rq_job = app.task_queue.enqueue('app.tasks.' + name, self.id, *args, **kwargs)
+        task = Task(id=rq_job.get_id(), name=name, description=description, user=self)
+        db.session.add(task)
+
+        return task
+
+    def get_tasks_in_progress(self):
+        """Gets all the tasks not completed"""
+
+        return Task.query.filter_by(user=self, complete=False).all()
+
+    def get_task_in_progress(self, name: str):
+        """Gets specific task by its {name} not completed"""
+
+        return Task.query.filter_by(name=name, user=self, complete=False).first()
 
     def __repr__(self):
         return f"{self.username}"

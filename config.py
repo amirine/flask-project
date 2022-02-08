@@ -30,6 +30,9 @@ class Config(object):
     # Search variable
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
 
+    # Redis variable
+    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
+
 
 class TestConfig(Config):
     TESTING = True

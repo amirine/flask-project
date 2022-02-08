@@ -28,6 +28,12 @@ ELASTICSEARCH_URL=
 
 Usually <code>ELASTICSEARCH_URL=http://localhost:9200 </code> is taken.
 
+Variable for Redis:
+
+```sh
+REDIS_URL=
+```
+
 Variables for email support:
 
 ```sh

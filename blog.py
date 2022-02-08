@@ -1,6 +1,6 @@
 from app import create_app, db
 from app import cli
-from app.models import User, Post, Notification
+from app.models import User, Post, Notification, Task
 
 app = create_app()
 cli.register(app)
@@ -10,4 +10,4 @@ cli.register(app)
 def make_shell_context():
     """Allows to use database models in shell with no import"""
 
-    return {'db': db, 'User': User, 'Post': Post, 'Notification': Notification}
+    return {'db': db, 'User': User, 'Post': Post, 'Notification': Notification, 'Task': Task}
