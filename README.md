@@ -11,8 +11,8 @@ Secret key variable:
 SECRET_KEY=
 ```
 
-<code>SECRET_KEY</code> may not be filled in as it has a default value in project's code, still that's not a good practice for
-the production, so please enter this value.
+<code>SECRET_KEY</code> may not be filled in as it has a default value in project's code, still that's not a good
+practice for the production, so please enter this value.
 
 Database variables:
 
@@ -123,3 +123,62 @@ flask translate compile
 ```
 
 Just run the required command and get the result.
+
+How to use API
+-------------------------
+
+Most of API requests are available only for authorized users, so please in order to use project's API properly create a
+user account.
+
+Generally project's REST API functionality includes:
+
+1. Getting list of users (available for authorized users only).
+2. Getting information of a specific user (available for authorized users only).
+3. Getting followers of a specific user (available for authorized users only).
+4. Getting followed of a specific user (available for authorized users only).
+5. Creating a user account (available for all the users).
+6. Updating a user account (available for authorized user: users have access to their own info only).
+
+As it was mentioned, most of the requests require authorization, actually authorization token. So to use all the API
+functionality generate a token first: just run the command below:
+
+```sh
+curl -X POST http://localhost:5000/api/tokens -u "username:password" 
+```
+
+To retrieve users stored in database make <code>GET</code> request to http://localhost:5000/api/users:
+
+```sh
+curl http://localhost:5000/api/users -H "Authorization: Bearer <token>"
+```
+
+To get information for a specific user run:
+
+```sh
+curl http://localhost:5000/api/users/1 -H "Authorization: Bearer <token>"
+```
+
+To get followers and followed for a specific user run:
+
+```sh
+curl http://localhost:5000/api/users/1/followers -H "Authorization: Bearer <token>"
+curl http://localhost:5000/api/users/1/followed -H "Authorization: Bearer <token>"
+```
+
+To register a new user account use a <code>POST</code> request:
+
+```sh
+curl -X POST http://localhost:5000/api/users -H "Content-Type: application/json" -H "Authorization: Bearer <token>" -d '{"username": "alice", "password": "dog", "email": "alice@example.com"}'
+```
+
+To modify an existing user info run a <code>PUT</code> request:
+
+```sh
+curl -X PUT http://localhost:5000/api/users/2 -H "Content-Type: application/json" -H "Authorization: Bearer <token>" -d '{"about_me": "about alice"}'
+```
+
+Clients can also invalidate the token by running:
+
+```sh
+curl -X DELETE http://localhost:5000/api/tokens -H "Authorization: Bearer <token>"
+```
