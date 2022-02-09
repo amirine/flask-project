@@ -29,7 +29,7 @@ class EditProfileForm(FlaskForm):
 
 
 class SubmitForm(FlaskForm):
-    """Form for user follow or unfollow"""
+    """Form for user to follow or unfollow"""
 
     submit = SubmitField(_l('Submit'))
 
@@ -37,7 +37,7 @@ class SubmitForm(FlaskForm):
 class PostForm(FlaskForm):
     """Form for post creating"""
 
-    text = StringField(_l('Post text'), validators=[Length(min=0, max=256)])
+    text = StringField(_l('Your post'), validators=[Length(min=0, max=256)])
     submit = SubmitField(_l('Save'))
 
 
