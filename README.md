@@ -137,16 +137,16 @@ Generally project's REST API functionality includes:
 3. Getting followers of a specific user (available for authorized users only).
 4. Getting followed of a specific user (available for authorized users only).
 5. Creating a user account (available for all the users).
-6. Updating a user account (available for authorized user: users have access to their own info only).
+6. Updating a user account (available for authorized users: users have access to their own info only).
 
-As it was mentioned, most of the requests require authorization, actually authorization token. So to use all the API
-functionality generate a token first: just run the command below:
+As it was mentioned, most of the requests require authorization, in fact authorization token. So to use all the API
+features generate a token first: just run the command below:
 
 ```sh
 curl -X POST http://localhost:5000/api/tokens -u "username:password" 
 ```
 
-To retrieve users stored in database make <code>GET</code> request to http://localhost:5000/api/users:
+To retrieve users stored in database make <code>GET</code> request:
 
 ```sh
 curl http://localhost:5000/api/users -H "Authorization: Bearer <token>"

@@ -181,8 +181,8 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
 
         return Task.query.filter_by(name=name, user=self, complete=False).first()
 
-    def to_dict(self, include_email=False) -> dict:
-        """Transforms user data to dictionary"""
+    def to_dict(self, full_path=False, include_email=False) -> dict:
+        """Transforms user data to dictionary. To  get full paths for links set full_path value to True"""
 
         data = {
             'id': self.id,
@@ -193,9 +193,9 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
             'follower_count': self.followers.count(),
             'followed_count': self.followed.count(),
             '_links': {
-                'self': url_for('api.get_user', id=self.id),
-                'followers': url_for('api.get_followers', id=self.id),
-                'followed': url_for('api.get_followed', id=self.id),
+                'self': url_for('api.get_user', _external=full_path, user_id=self.id),
+                'followers': url_for('api.get_followers', _external=full_path, user_id=self.id),
+                'followed': url_for('api.get_followed', _external=full_path, user_id=self.id),
                 'avatar': self.get_avatar(128)
             }
         }

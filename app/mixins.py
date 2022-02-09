@@ -58,7 +58,7 @@ class PaginatedAPIMixin(object):
     """Mixin for API pagination"""
 
     @staticmethod
-    def to_collection_dict(query, page, per_page, endpoint, **kwargs) -> dict:
+    def to_collection_dict(query, page, per_page, endpoint, full_path=False, **kwargs) -> dict:
         """Returns dictionary for API with data paginated"""
 
         resources = query.paginate(page, per_page, False)
@@ -71,9 +71,11 @@ class PaginatedAPIMixin(object):
                 'total_items': resources.total
             },
             '_links': {
-                'self': url_for(endpoint, page=page, per_page=per_page, **kwargs),
-                'next': url_for(endpoint, page=page + 1, per_page=per_page, **kwargs) if resources.has_next else None,
-                'prev': url_for(endpoint, page=page - 1, per_page=per_page, **kwargs) if resources.has_prev else None,
+                'self': url_for(endpoint, _external=full_path, page=page, per_page=per_page, **kwargs),
+                'next': url_for(endpoint, _external=full_path, page=page + 1, per_page=per_page,
+                                **kwargs) if resources.has_next else None,
+                'prev': url_for(endpoint, _external=full_path, page=page - 1, per_page=per_page,
+                                **kwargs) if resources.has_prev else None,
             }
         }
 

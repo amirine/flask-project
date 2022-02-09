@@ -1,9 +1,9 @@
-from flask import jsonify, Response
 from werkzeug.http import HTTP_STATUS_CODES
+from flask import jsonify, Response
 from flask_babel import _
 
 
-def error_response(status_code, message=None) -> Response:
+def error_response(status_code: int, message=None) -> Response:
     """Returns Response object for the error"""
 
     payload = {'error': HTTP_STATUS_CODES.get(status_code, _('Unknown error'))}
