@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo, ValidationError, Length
+from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 from flask_babel import lazy_gettext as _l
 from flask_babel import _
 
@@ -28,6 +28,7 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         """Checks whether username already exists"""
 
+        print(type(username))
         if User.query.filter_by(username=username.data).first():
             raise ValidationError(_('Please use a different username.'))
 
