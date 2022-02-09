@@ -1,6 +1,6 @@
 from flask import request
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, Length
 from flask_babel import lazy_gettext as _l
 from flask_babel import _
@@ -52,10 +52,3 @@ class SearchForm(FlaskForm):
         if 'meta' not in kwargs:
             kwargs['meta'] = {'csrf': False}
         super().__init__(*args, **kwargs)
-
-
-class MessageForm(FlaskForm):
-    """Form for sending private messages"""
-
-    message = TextAreaField(_l('Message'), validators=[DataRequired(), Length(min=0, max=256)])
-    submit = SubmitField(_l('Send'))

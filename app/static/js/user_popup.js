@@ -12,7 +12,7 @@ $(function () {
             timer = setTimeout(function () {
                 timer = null;
                 xhr = $.ajax(
-                    'user/' + elem.first().text().trim() + '/popup').done(
+                    elem.first().text().trim() + '/popup').done(
                     function (data) {
                         xhr = null;
                         elem.popover({

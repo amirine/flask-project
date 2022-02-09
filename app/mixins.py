@@ -58,23 +58,24 @@ class PaginatedAPIMixin(object):
     """Mixin for API pagination"""
 
     @staticmethod
-    def to_collection_dict(query, page, per_page, endpoint, full_path=False, **kwargs) -> dict:
+    def to_collection_dict(query, page_number: int, objects_per_page: int, endpoint: str, full_path=False,
+                           **kwargs) -> dict:
         """Returns dictionary for API with data paginated"""
 
-        resources = query.paginate(page, per_page, False)
+        resources = query.paginate(page_number, objects_per_page, False)
         data = {
             'items': [item.to_dict() for item in resources.items],
             '_meta': {
-                'page': page,
-                'per_page': per_page,
+                'page': page_number,
+                'per_page': objects_per_page,
                 'total_pages': resources.pages,
                 'total_items': resources.total
             },
             '_links': {
-                'self': url_for(endpoint, _external=full_path, page=page, per_page=per_page, **kwargs),
-                'next': url_for(endpoint, _external=full_path, page=page + 1, per_page=per_page,
+                'self': url_for(endpoint, _external=full_path, page=page_number, per_page=objects_per_page, **kwargs),
+                'next': url_for(endpoint, _external=full_path, page=page_number + 1, per_page=objects_per_page,
                                 **kwargs) if resources.has_next else None,
-                'prev': url_for(endpoint, _external=full_path, page=page - 1, per_page=per_page,
+                'prev': url_for(endpoint, _external=full_path, page=page_number - 1, per_page=objects_per_page,
                                 **kwargs) if resources.has_prev else None,
             }
         }

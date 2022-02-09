@@ -62,7 +62,7 @@
                 <!-- Send private message link -->
                 {% if user != current_user %}
                     <p>
-                        <a href="{{ url_for('main.send_message', recipient=user.username) }}">
+                        <a href="{{ url_for('messages.send_message', recipient=user.username) }}">
                         {{ _('Send private message') }}
                         </a>
                     </p>

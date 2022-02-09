@@ -182,3 +182,15 @@ Clients can also invalidate the token by running:
 ```sh
 curl -X DELETE http://localhost:5000/api/tokens -H "Authorization: Bearer <token>"
 ```
+
+RQ Worker
+-------------------------
+
+For running some tasks in the project Redis Queue package is used. To start the RQ worker process and to perform tasks,
+mentioned in <code>tasks.py</code> file, please run the command bellow:
+
+```sh
+rq worker blog-tasks
+```
+
+The worker process is now connected to Redis and any jobs may be assigned to it on a queue named blog-tasks.

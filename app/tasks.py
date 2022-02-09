@@ -30,7 +30,8 @@ def export_posts(user_id: int) -> None:
 
         send_email(
             _('[Blog] Your blog posts'),
-            sender=app.config['MAIL_USERNAME'], recipients=[user.email],
+            sender=app.config['MAIL_USERNAME'],
+            recipients=[user.email],
             text_body=render_template('email/export_posts.txt', user=user),
             html_body=render_template('email/export_posts.html', user=user),
             attachments=[('posts.json', 'application/json', json.dumps({'posts': posts_to_export}, indent=4))],

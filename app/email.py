@@ -12,7 +12,8 @@ def send_async_email(app, msg):
         mail.send(msg)
 
 
-def send_email(subject, sender, recipients, text_body, html_body, attachments=None, sync=False):
+def send_email(subject: str, sender: str, recipients: list[str], text_body: str, html_body: str,
+               attachments=None, sync=False) -> None:
     """Sends email to recipients"""
 
     msg = Message(subject, sender=sender, recipients=recipients)

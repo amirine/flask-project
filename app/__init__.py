@@ -1,6 +1,8 @@
+import os
 import rq
+from redis import Redis
 from elasticsearch import Elasticsearch
-from flask import Flask
+from flask import Flask, request, current_app
 from flask_babel import Babel
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
@@ -10,9 +12,6 @@ from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import logging
-import os
-
-from redis import Redis
 
 from config import Config
 
@@ -50,11 +49,14 @@ def create_app(config_class=Config):
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
 
-    from app.main import bp as main_bp
-    app.register_blueprint(main_bp, url_prefix='/main')
+    from app.messages import bp as messages_bp
+    app.register_blueprint(messages_bp, url_prefix='/messages')
 
     from app.api import bp as api_bp
     app.register_blueprint(api_bp, url_prefix='/api')
+
+    from app.main import bp as main_bp
+    app.register_blueprint(main_bp)
 
     from app import models
 
@@ -94,5 +96,4 @@ def create_app(config_class=Config):
 def get_locale():
     """Sets the most appropriate language for pages"""
 
-    # return request.accept_languages.best_match(app.config['LANGUAGES'])
-    return 'ru'
+    return request.accept_languages.best_match(current_app.config['LANGUAGES'])

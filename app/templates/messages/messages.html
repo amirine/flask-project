@@ -5,9 +5,13 @@
     <h1>{{ _('Messages') }}</h1>
 
     <!-- User's posts -->
-    {% for post in messages %}
-        {% include '_post.html' %}
-    {% endfor %}
+    {% if posts %}
+        {% for post in messages %}
+            {% include '_post.html' %}
+        {% endfor %}
+    {% else %}
+        <h4>{{ _('No messages') }}</h4>
+    {% endif %}
 
     <!-- Posts pagination -->
     {% include '_pagination.html' %}

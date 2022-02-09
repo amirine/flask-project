@@ -50,7 +50,7 @@
 
                         <!-- Messages -->
                         <li>
-                            <a href="{{ url_for('main.messages') }}">{{ _('Messages') }}
+                            <a href="{{ url_for('messages.messages') }}">{{ _('Messages') }}
                             {% set new_messages = current_user.new_messages() %}
                             <span id="message_count" class="badge" style="visibility: {% if new_messages %}visible
                                 {% else %}hidden {% endif %};">

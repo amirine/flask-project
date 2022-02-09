@@ -1,6 +1,7 @@
 import base64
 import json
 import os
+from typing import Any
 
 import jwt
 import redis
@@ -8,6 +9,7 @@ import rq
 from flask_login import UserMixin
 from flask import current_app as app, url_for
 from flask_sqlalchemy import BaseQuery
+from rq.job import Job
 from werkzeug.security import generate_password_hash, check_password_hash
 from hashlib import md5
 from datetime import datetime, timedelta
@@ -19,7 +21,6 @@ from app.mixins import SearchableMixin, PaginatedAPIMixin
 db.event.listen(db.session, 'before_commit', SearchableMixin.before_commit)
 db.event.listen(db.session, 'after_commit', SearchableMixin.after_commit)
 
-# Table for followers
 followers = db.Table('followers',
                      db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
                      db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
@@ -27,13 +28,15 @@ followers = db.Table('followers',
 
 
 class Notification(db.Model):
+    """Model for notifications"""
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     timestamp = db.Column(db.Float, index=True, default=time)
     payload_json = db.Column(db.Text)
 
-    def get_data(self):
+    def get_data(self) -> Any:
         return json.loads(str(self.payload_json))
 
 
@@ -46,7 +49,7 @@ class Task(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     complete = db.Column(db.Boolean, default=False)
 
-    def get_rq_job(self) -> rq.job.Job:
+    def get_rq_job(self) -> Job:
         """Gets Job instance by task id. Returns None in case the job has been already finished"""
 
         try:
@@ -56,7 +59,7 @@ class Task(db.Model):
 
         return rq_job
 
-    def get_progress(self):
+    def get_progress(self) -> int:
         """Returns the progress percentage for the task"""
 
         job = self.get_rq_job()
@@ -122,7 +125,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
 
         return self.followed.filter(followers.c.followed_id == user_to_follow.id).count()
 
-    def get_posts_from_followed_users(self) -> BaseQuery:
+    def get_posts_from_followed_users(self):
         """Gets posts from followed users + current user's own posts"""
 
         followed_posts = Post.query.join(followers, (followers.c.followed_id == Post.user_id)).filter(
@@ -171,12 +174,12 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
 
         return task
 
-    def get_tasks_in_progress(self):
+    def get_tasks_in_progress(self) -> list:
         """Gets all the tasks not completed"""
 
         return Task.query.filter_by(user=self, complete=False).all()
 
-    def get_task_in_progress(self, name: str):
+    def get_task_in_progress(self, name: str) -> Task:
         """Gets specific task by its {name} not completed"""
 
         return Task.query.filter_by(name=name, user=self, complete=False).first()
@@ -205,7 +208,7 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
 
         return data
 
-    def from_dict(self, data, new_user=False) -> None:
+    def from_dict(self, data: dict, new_user=False) -> None:
         """Gets data from dictionary"""
 
         for field in ['username', 'email', 'about_me']:
@@ -247,6 +250,13 @@ class User(PaginatedAPIMixin, UserMixin, db.Model):
         return f"{self.username}"
 
 
+@login.user_loader
+def load_user(user_id) -> User:
+    """Gets user by id for session"""
+
+    return User.query.get(int(user_id))
+
+
 class Post(SearchableMixin, db.Model):
     """Model for user Posts"""
 
@@ -272,10 +282,3 @@ class Message(db.Model):
 
     def __repr__(self):
         return f"Message {self.id} from user {self.sender_id} to user {self.recipient_id}"
-
-
-@login.user_loader
-def load_user(user_id):
-    """Gets user by id for session"""
-
-    return User.query.get(int(user_id))

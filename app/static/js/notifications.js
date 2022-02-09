@@ -9,7 +9,7 @@ function set_message_count(n) {
 
 $(function () {
     var since = 0;
-    var url = "/main/notifications"
+    var url = "/notifications"
     setInterval(function () {
         $.ajax(url + '?since=' + since).done(
             function (notifications) {
