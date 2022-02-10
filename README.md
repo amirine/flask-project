@@ -44,8 +44,8 @@ MAIL_USERNAME=
 MAIL_PASSWORD=
 ```
 
-Project's functionality includes password reset and errors sending to the admin email, so all these values are also
-required.
+Project's functionality includes password reset, errors sending to the admin email and exporting posts with sending to
+the user's email, so all these values are also required.
 
 Dynamic translation for posts is also provided, therefore one more environmental variable required:
 
@@ -194,3 +194,20 @@ rq worker blog-tasks
 ```
 
 The worker process is now connected to Redis and any jobs may be assigned to it on a queue named blog-tasks.
+
+Docker Container
+-------------------------
+
+To build a container image just run:
+
+```sh
+docker build -t flaskblog:latest .
+```
+
+Now with an image already created, you can now run the container. This can be done via command bellow:
+
+```sh
+docker run --name flaskblog -d -p 8000:5000 --rm --env-file .env flaskblog:latest
+```
+
+Make sure to fill all the credentials in the <code>.env</code> file.
